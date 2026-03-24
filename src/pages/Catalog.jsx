@@ -1,39 +1,32 @@
+import { useState, useEffect, useMemo } from 'react';
 import CardGrid from '../components/Cards/CardGrid';
 import PokemonCard from '../components/Pokemon/PokemonCard';
-
-const PokemonListData = [
-    {
-        code: 1,
-        name: "Bulbasaur",
-        types: ["Grass", "Poison"],
-        hp: 45,
-        atk: 49,
-        def: 49,
-    },
-    {
-        code: 2,
-        name: "Ivysaur",
-        types: ["Grass", "Poison"],
-        hp: 60,
-        atk: 62,
-        def: 63,
-    },
-    {
-        code: 3,
-        name: "Venusaur",
-        types: ["Grass", "Poison"],
-        hp: 80,
-        atk: 82,
-        def: 83,
-    },
-]
+import PokemonService from '../services/PokemonAPI';
 
 const Catalog = () => {
+    const [isLoaded, setIsLoaded] = useState(false);
+    const [PokemonListData, setPokemonListData] = useState([]);
+    const [page, setPage] = useState(1);
+    const [limit, setLimit] = useState(20);
+    const PokemonServiceInstance = useMemo(() => {
+        return new PokemonService();
+    }, [isLoaded]);
+    useEffect(() => {
+        if(PokemonServiceInstance) {
+            PokemonServiceInstance.FetchList(page, limit, setPokemonListData);
+        }
+    }, [page, limit, isLoaded, PokemonServiceInstance]);
+
+    if(isLoaded && !PokemonListData) {
+        setIsLoaded(true);
+        return <div>Loading...</div>;
+    }
+
     return (
         <CardGrid
-        gridItems={PokemonListData.map(o => {
+        gridItems = {PokemonListData?.results?.map(o => {
             return (
-                <PokemonCard data={o} key={o.code}/>
+                <PokemonCard data={o} key={o.name} />
             );
         })} />
     );

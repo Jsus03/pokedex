@@ -21,7 +21,7 @@ const PokemonCard = (
                 <CardBody>
                     <section className="mt-8 px-4">
                     <div className="flex justify-between">
-                        <span className="font-bold">{`#${data.code.toString().padStart(3, '0')}`}</span>
+                        <span className="font-bold">{`#${data.code}`}</span>
                         <span className="flex gap-2">
                         <span className="inline-block px-3 py-2 bg-green-500 text-white rounded-sm">Grass</span>
                         <span className="inline-block px-3 py-2 bg-purple-400 text-white rounded-sm">Poison</span>
