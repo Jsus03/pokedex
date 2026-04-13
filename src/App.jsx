@@ -1,17 +1,7 @@
-import Header from './components/Header';
-import Catalog from './pages/Catalog';
-
+import Router from './pages/Router';
 function App() {
   return (
-    <>
-      <Header />
-      <main>
-        <Catalog />
-      </main>
-      <footer>
-        Tommy Vega 2026 - All rights reserved
-      </footer>
-    </>
+   <Router />
   )
 }
 
